@@ -1,0 +1,30 @@
+User.Account 
+    user.Client
+    user.Investor
+    user.company
+
+User.Client
+    user.client.open.positions
+    user.client.close.positions
+
+User.Investor
+    user.investor.open.positions
+    user.inverstor.close.positions
+    user.inverstor.invest
+    user.investor.trade
+
+User.company
+    user.company.create.company
+    user.comapny.create.triomac
+    user.company.potential.value
+    user.company.real.value
+    user.company.create.float.value
+    user.company.deploy
+
+
+
+Set.investment --> Deployed.company    
+
+User.Client --> Deployed.comapny.products | 60.company.products
+
+Structured Mode : Default Client-Mode , Investor-Mode , Company-Mode
