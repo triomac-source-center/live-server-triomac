@@ -6,7 +6,14 @@ import AmpTriggerModel from './models/model_trigger.js'
 import mongoose from 'mongoose'
 import { fundamentalBuild } from './utils/built.js'
 
-mongoose.connect('mongodb://localhost/ampdatabase')
+if (mongoose.connection.readyState === 0) {
+    mongoose.connect('mongodb+srv://triomac60:F3v1K5wI0SK7c6nK@triomacdatas.hjmribt.mongodb.net/amptriggersmodels?retryWrites=true&w=majority&appName=Triomacdatas', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+  }
 
 let app = express()
 dotenv.config()
@@ -37,21 +44,35 @@ const points = {
 // }
 
 
-const obj = [
-    { p_point: points.groove.p_point, id: '67802831687fbf36b478da36' },
-    { p_point: points.apple.p_point, id: '67802831687fbf36b478da35' },
-    { p_point: points.belldum.p_point, id: '67802831687fbf36b478da39' },
-    { p_point: points.cloack.p_point, id: '67802831687fbf36b478da3a' },
-    { p_point: points.quevers.p_point, id: '67802831687fbf36b478da3b' },
-    { p_point: points.dominan.p_point, id: '67802831687fbf36b478da3c' },
-    { p_point: points.paravim.p_point, id: '67802831687fbf36b478da3d' },
-    { p_point: points.selenium.p_point, id: '67802831687fbf36b478da3e' },
-    { p_point: points.triomac.p_point, id: '67802831687fbf36b478da3f' },
-    { p_point: points.demunic.p_point, id: '67802831687fbf36b478da40' },
-    { p_point: points.crimble.p_point, id: '67802831687fbf36b478da37' },
-    { p_point: points.stock.p_point, id: '67802831687fbf36b478da38' }
-]
+// const obj = [
+//     { p_point: points.groove.p_point, id: '67802831687fbf36b478da36' },
+//     { p_point: points.apple.p_point, id: '67802831687fbf36b478da35' },
+//     { p_point: points.belldum.p_point, id: '67802831687fbf36b478da39' },
+//     { p_point: points.cloack.p_point, id: '67802831687fbf36b478da3a' },
+//     { p_point: points.quevers.p_point, id: '67802831687fbf36b478da3b' },
+//     { p_point: points.dominan.p_point, id: '67802831687fbf36b478da3c' },
+//     { p_point: points.paravim.p_point, id: '67802831687fbf36b478da3d' },
+//     { p_point: points.selenium.p_point, id: '67802831687fbf36b478da3e' },
+//     { p_point: points.triomac.p_point, id: '67802831687fbf36b478da3f' },
+//     { p_point: points.demunic.p_point, id: '67802831687fbf36b478da40' },
+//     { p_point: points.crimble.p_point, id: '67802831687fbf36b478da37' },
+//     { p_point: points.stock.p_point, id: '67802831687fbf36b478da38' }
+// ]
 
+const obj = [
+    { p_point: points.groove.p_point, id: '67e704d7c4a953d042d1405a' },
+    { p_point: points.apple.p_point, id: '67e704d7c4a953d042d14059' },
+    { p_point: points.belldum.p_point, id: '67e704d7c4a953d042d1405d' },
+    { p_point: points.cloack.p_point, id: '67e704d7c4a953d042d1405e' },
+    { p_point: points.quevers.p_point, id: '67e704d7c4a953d042d1405f' },
+    { p_point: points.dominan.p_point, id: '67e704d7c4a953d042d1405f' },
+    { p_point: points.paravim.p_point, id: '67e704d7c4a953d042d14061' },
+    { p_point: points.selenium.p_point, id: '67e704d7c4a953d042d14062' },
+    { p_point: points.triomac.p_point, id: '67e704d7c4a953d042d14063' },
+    { p_point: points.demunic.p_point, id: '67e704d7c4a953d042d14064' },
+    { p_point: points.crimble.p_point, id: '67e704d7c4a953d042d1405b' },
+    { p_point: points.stock.p_point, id: '67e704d7c4a953d042d1405c' }
+]
 
 app.get('/api/get', async (req, res) => { 
 	const data_document = await AmpTriggerModel.find({})

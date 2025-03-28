@@ -3,7 +3,10 @@ import AmpTriggerModel from "../models/model_trigger.js"
 import chalk from "chalk"
 
 console.log('Connecting to database ...')
-mongoose.connect('mongodb://localhost/ampdatabase')
+
+mongoose.connect('mongodb+srv://triomac60:F3v1K5wI0SK7c6nK@triomacdatas.hjmribt.mongodb.net/amptriggersmodels?retryWrites=true&w=majority&appName=Triomacdatas')
+
+
 console.log('Database Connected succesfully ✅')
 
 
