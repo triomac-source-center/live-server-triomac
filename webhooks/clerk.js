@@ -6,11 +6,13 @@ import { Webhook } from 'svix';
 const clerkWebhook = express.Router();
 
 // Middleware nécessaire pour avoir le raw body
-clerkWebhook.use(bodyParser.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf.toString();
-  }
-}));
+clerkWebhook.use(
+    express.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf.toString("utf8");
+      },
+    })
+  );
 
 clerkWebhook.post("/clerk", async (req, res) => {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
