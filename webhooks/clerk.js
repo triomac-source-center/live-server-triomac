@@ -1,52 +1,75 @@
-// clerkWebhook.js
-import express from 'express'
-import bodyParser from 'body-parser';
-import { Webhook } from 'svix';
+import express from "express";
+import bodyParser from "body-parser";
+import { Webhook } from "svix";
 
 const clerkWebhook = express.Router();
 
-// Middleware nécessaire pour avoir le raw body
-clerkWebhook.use(
-    express.json({
-      verify: (req, res, buf) => {
-        req.rawBody = buf.toString("utf8");
-      },
-    })
-  );
+clerkWebhook.post(
+  "/clerk",
+  // Parse raw body for signature verification
+  bodyParser.raw({ type: "application/json" }),
 
-clerkWebhook.post("/clerk", async (req, res) => {
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  async (req, res) => {
+    const SIGNING_SECRET = process.env.WEBHOOK_SECRET;
 
-  const headers = req.headers;
-  const svix_id = headers["svix-id"];
-  const svix_timestamp = headers["svix-timestamp"];
-  const svix_signature = headers["svix-signature"];
+    if (!SIGNING_SECRET) {
+      throw new Error("Error: Please add SIGNING_SECRET from Clerk Dashboard to .env");
+    }
 
-  const wh = new Webhook(WEBHOOK_SECRET);
+    // Create Svix instance
+    const wh = new Webhook(SIGNING_SECRET);
 
-  let event;
+    // Get headers and raw body
+    const headers = req.headers;
+    const payload = req.body;
 
-  try {
-    event = wh.verify(req.rawBody, {
-      "svix-id": svix_id,
-      "svix-timestamp": svix_timestamp,
-      "svix-signature": svix_signature,
+    // Extract svix headers
+    const svix_id = headers["svix-id"];
+    const svix_timestamp = headers["svix-timestamp"];
+    const svix_signature = headers["svix-signature"];
+
+    if (!svix_id || !svix_timestamp || !svix_signature) {
+      return res.status(400).json({
+        success: false,
+        message: "Error: Missing svix headers",
+      });
+    }
+
+    let evt;
+
+    // Try to verify the webhook
+    try {
+      evt = wh.verify(payload.toString("utf8"), {
+        "svix-id": svix_id,
+        "svix-timestamp": svix_timestamp,
+        "svix-signature": svix_signature,
+      });
+    } catch (err) {
+      console.error("Error: Could not verify webhook:", err.message);
+      return res.status(400).json({
+        success: false,
+        message: err.message,
+      });
+    }
+
+    // Handle the event
+    const { id } = evt.data;
+    const eventType = evt.type;
+
+    if (eventType === "user.created") {
+        //code here...
+        console.log('User was created Successfully')
+      }
+
+    console.log(`✅ Received webhook with ID ${id} and event type of ${eventType}`);
+    console.log("📦 Webhook payload:", evt.data);
+
+    return res.status(200).json({
+      success: true,
+      message: "Webhook received",
     });
-  } catch (err) {
-    console.error("Webhook Clerk invalide :", err);
-    return res.status(400).send("Invalid webhook");
   }
+);
 
-  const { type, data } = event;
-  console.log("📦 Clerk Event reçu :", type, data);
-
-
-  if (type === "user.created") {
-    //code here...
-    console.log('User was created Successfully')
-  }
-
-  res.status(200).send("Webhook reçu avec succès !");
-});
 
 export default clerkWebhook;
