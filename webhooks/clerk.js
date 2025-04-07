@@ -13,7 +13,7 @@ clerkWebhook.use(bodyParser.json({
 }));
 
 clerkWebhook.post("/clerk", async (req, res) => {
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   const headers = req.headers;
   const svix_id = headers["svix-id"];
