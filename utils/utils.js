@@ -13,7 +13,7 @@ console.log('Database Connected succesfully ✅')
 
 export const makeVirtualSimulation = (object) => {
 
-    console.log(`SIMULATION START AT ${Date.now()} ...`)
+    // console.log(`SIMULATION START AT ${Date.now()} ...`)
 
     const common = object.p_point.toFixed(6).toString()
     const dynamic_common = common.split('')
@@ -137,13 +137,13 @@ export const makeVirtualSimulation = (object) => {
 
         // console.log(tab)
         const validSymbol = chalk.green('✓')
-        console.log('      ')
-        console.log(validSymbol + ` Compiled ${chalk.dim('/triomac-system/data-achictecture/center')} in 3ms suscess`)
-        console.log(validSymbol + ` Compiled /${chalk.cyan('triomac-system')}/${chalk.cyan('data-achictecture')} (129/129 modules)`)
-        console.log(validSymbol + ` Compiled ${chalk.magenta('/triomac')} [[(1554 modules) -> ${chalk.bgBlack('substances')} ] ${chalk.green(tab[0])}]`)
-        console.log(validSymbol + ` Compiled ${chalk.magenta('/triomac')} [[(1554 modules) -> ${chalk.dim('substances')} ] ${chalk.yellow(tab[1])}]`)
-        console.log('      ')
-        console.log(`[Components: @triomac/system-center: Missing publishableKey. CEF:0|Trend Micro|Deep Security Manager||600|User Signed In|3|src=10.52.116.160 suser=admin  ${tab.join(' | ')}]`)
+        // console.log('      ')
+        // console.log(validSymbol + ` Compiled ${chalk.dim('/triomac-system/data-achictecture/center')} in 3ms suscess`)
+        // console.log(validSymbol + ` Compiled /${chalk.cyan('triomac-system')}/${chalk.cyan('data-achictecture')} (129/129 modules)`)
+        // console.log(validSymbol + ` Compiled ${chalk.magenta('/triomac')} [[(1554 modules) -> ${chalk.bgBlack('substances')} ] ${chalk.green(tab[0])}]`)
+        // console.log(validSymbol + ` Compiled ${chalk.magenta('/triomac')} [[(1554 modules) -> ${chalk.dim('substances')} ] ${chalk.yellow(tab[1])}]`)
+        // console.log('      ')
+        // console.log(`[Components: @triomac/system-center: Missing publishableKey. CEF:0|Trend Micro|Deep Security Manager||600|User Signed In|3|src=10.52.116.160 suser=admin  ${tab.join(' | ')}]`)
 
         const value_seen = createSegment(dynamic_common)
         tab.shift()
@@ -161,8 +161,8 @@ export const makeVirtualSimulation = (object) => {
         
 
         const currentTab = screen + " | " + screen_perc + " | " + screen_all_perc + " | " + screen_th
-        console.log(`⭐ All Sets: ----> ${currentTab}`)
-        console.log(`${chalk.dim('target=admin msg=User signed in from 2001:db8::5')}`)
+        // console.log(`⭐ All Sets: ----> ${currentTab}`)
+        // console.log(`${chalk.dim('target=admin msg=User signed in from 2001:db8::5')}`)
 
     }
 

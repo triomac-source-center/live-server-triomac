@@ -5,6 +5,8 @@ import { makeVirtualSimulation } from './utils/utils.js'
 import AmpTriggerModel from './models/model_trigger.js'
 import mongoose from 'mongoose'
 import { fundamentalBuild } from './utils/built.js'
+import clerkWebhook from './webhooks/clerk.js'
+
 
 if (mongoose.connection.readyState === 0) {
     mongoose.connect('mongodb+srv://triomac60:F3v1K5wI0SK7c6nK@triomacdatas.hjmribt.mongodb.net/amptriggersmodels?retryWrites=true&w=majority&appName=Triomacdatas', {
@@ -78,6 +80,9 @@ app.get('/api/get', async (req, res) => {
 	const data_document = await AmpTriggerModel.find({})
 	res.json(data_document)
 })
+
+app.use("/webhooks", clerkWebhook);
+
 
 const PORT = process.env.PORT || 3000;
 
